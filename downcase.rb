@@ -1,0 +1,1 @@
+puts "RICHARD".downcase.split('').join(',').size
