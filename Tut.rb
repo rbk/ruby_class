@@ -1,4 +1,3 @@
-
 class Tut
 
 	attr_accessor # comma separated list of class vars i.e :name, :place, :time
@@ -6,6 +5,7 @@ class Tut
 	@@array = []
 	@@tut = 'ut'
 	@@consonants = /[^aeiouAEIOU[:punct:]\ ]/
+	@@consonants_ut = /([^aeiouAEIOU[:punct:]\ ]ut)/
 	# @@tut_string = ''
 
 	def initialize( string )
@@ -18,7 +18,9 @@ class Tut
 	end
 
 	def self.to_english( string )
-		puts @tut_string
+		# puts @tut_string
+		puts string.gsub!( @@consonants_ut ) { | match |  "#{match}".sub("ut", "") }
+		# yield string
 	end
 
 
