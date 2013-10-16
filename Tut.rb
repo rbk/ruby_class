@@ -2,29 +2,23 @@ class Tut
 
 	attr_accessor :tut_string
 
-	@@array = []
 	@@tut = 'ut'
 	@@consonants = /[^aeiouAEIOU[:punct:]\ ]/
 	@@consonants_ut = /([^aeiouAEIOU[:punct:]\ ]ut)/
-	@@tut_string = ''
-
-	# def initialize( string )
-	# 	@tut_string = string
-	# end
 
 	def self.to_tut( string )
 		yield string.gsub!( @@consonants ) { |match|  "#{match}#{@@tut}" }
 	end
 
 	def self.to_english( string )
-		puts string.gsub!( @@consonants_ut ) { | match |  "#{match}".sub("ut", "") }
+		puts string.gsub!( @@consonants_ut ) { |match|  "#{match}".sub("ut", "") }
 	end
 
-
+	# changed "print" to "puts" on the first test to create a new line
 
 end
 
-Tut.to_tut( "Wow! Look at this get converted to Tut!" ) { |c| print c }
+Tut.to_tut( "Wow! Look at this get converted to Tut!" ) { |c| puts c }
 # should outout : Wutowut! Lutookut atut tuthutisut gutetut cutonutvuteruttutedut tuto Tututut!
 
 tut_string = ""
