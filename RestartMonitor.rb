@@ -1,18 +1,40 @@
-# Create a class called RestartMonitor that 
-# can read from the attached log file and report 
-# the dates and times that system restarts occurred.
+# RestartMonitor
 
-# Your RestartMonitor class should have 
-# the ability to work with any specified 
-# log file name, it should be able to search 
-# for system restarts and report on those 
-# restarts independently (i.e. searching 
-# for and showing the restarts do not have 
-# to happen at the same time), and duplicate 
-# restarts should not be shown.
+class RestartMonitor
+	
+	def initialize( filename )
 
-# Restarts can be identified in the log file 
-# by the word "restarting" that will occur in those lines.
+		@results = []
+		@filename = filename
+		path = "#{File.dirname(__FILE__)}"
+		file = "#{path}/#{filename}"
+		if File.exists?( file )
 
+			File.open( file ) do |data|
+				data.each_line do |line|
+					if line =~ /restarting/
+						@results.push(line)
+					end
+				end 
+			end
+		else
+			puts "#{path}/#{filename} does not exist."
+		end
+	end
 
-print ARGV # argument passed from the command line when running script
+	def show_restarts
+		@results.each do |line|
+			puts line[0..14]
+		end
+	end
+
+end
+
+if ARGV.empty? 
+	filename = "syslog.txt"
+else 
+	filename = ARGV
+end
+
+r1 = RestartMonitor.new( filename );
+r1.show_restarts
